@@ -90,6 +90,25 @@ class CourtTest(unittest.TestCase):
         self.assertLess(a.index("opening/prosecution.md"), a.index("opening/defense.md"))
         self.assertLess(b.index("opening/defense.md"), b.index("opening/prosecution.md"))
 
+    def test_every_brief_builds_in_every_round(self):
+        # Regression: the judge brief once raised "not all arguments converted during string formatting".
+        self.open_trial("--jury", "3", "--refine")
+        for rnd in (1, 2):
+            state = self.play_round(["GUILTY"] * 3)
+            for phase in court.PHASES:
+                self.cli("prompts", phase)
+                for j in court.jobs(state, phase):
+                    text = court.read(j["brief"])
+                    self.assertIn(j["output"], text)
+                    self.assertNotIn("%s", text)
+            judge = court.read(court.jobs(state, "judge")[0]["brief"])
+            self.assertIn("RULING: SATISFIED or NOT SATISFIED", judge)
+            self.assertEqual("## Did the refinements hold" in judge, rnd == 2)
+            if rnd == 1:
+                self.write_one(state, "founder", FOUNDER_OK)
+                self.write_one(state, "arbiter", "RULING: CONTINUE\nREASON: ok\n")
+                self.cli("next")
+
     def test_parse_vote_variants(self):
         v = court.parse_vote("VOTE: NOT GUILTY\nCONFIDENCE: 3\nREASON: it pays.\nDECIDING FACT: $8,000\n"
                              "WOULD FLIP IF: no savings")

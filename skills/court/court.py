@@ -326,6 +326,8 @@ def brief_text(state, phase, job):
         return h + (
             "You are the JUDGE. The jury has voted and you cannot overturn the vote. Read the case file, the "
             "four statements in %s and %s, every juror's vote in %s, and the count in %s.%s\n\n"
+            % (_abs(state, r, "opening"), _abs(state, r, "rebuttal"), _abs(state, r, "jury"),
+               _abs(state, r, "tally.json"), prior) +
             "Your first line is your own view, separate from the jury's, of whether the case as it now stands "
             "has answered the charges well enough to go ahead:\n\n"
             "RULING: SATISFIED or NOT SATISFIED\n\n"
@@ -337,9 +339,7 @@ def brief_text(state, phase, job):
             "## Conditions for acquittal\nThe 3 specific changes that would flip the most votes, built from "
             "the jurors' WOULD FLIP IF lines. Each one is something the user can do this week.\n\n"
             "## The sentence\nOne short paragraph in a judge's voice: what the user should do next.\n\n"
-            "300 words at most. Do not repeat the vote count: it is printed above your judgment.\n"
-            % (_abs(state, r, "opening"), _abs(state, r, "rebuttal"), _abs(state, r, "jury"),
-               _abs(state, r, "tally.json"), prior))
+            "300 words at most. Do not repeat the vote count: it is printed above your judgment.\n")
     if phase == "founder":
         rejected = _abs(state, r, "refine", "arbiter-redo.md")
         redo = ""
