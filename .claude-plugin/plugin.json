@@ -1,0 +1,11 @@
+{
+  "name": "court-refine",
+  "description": "Put your idea on trial in front of a jury of Claudes, then let a founder Claude refine and defend it until it is acquitted or an arbiter rules it can no longer be defended.",
+  "version": "2.0.0",
+  "author": {
+    "name": "srijith9862"
+  },
+  "repository": "https://github.com/srijith9862/court-skill-with-refinement",
+  "license": "MIT",
+  "keywords": ["claude-code", "subagents", "multi-agent", "jury", "decision-making", "feedback", "refinement"]
+}

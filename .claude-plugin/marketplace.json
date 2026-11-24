@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "court-skill-with-refinement",
+  "description": "The court skill for Claude Code, with a founder/arbiter refinement loop",
+  "owner": {
+    "name": "srijith9862"
+  },
+  "plugins": [
+    {
+      "name": "court-refine",
+      "description": "Puts your idea on trial (prosecutor, defense, a jury of up to 12 Claudes, a judge), then optionally lets a founder refine and defend it until the jury acquits and the judge agrees, or an arbiter rules it exhausted.",
+      "source": "./",
+      "category": "productivity",
+      "author": {
+        "name": "srijith9862"
+      }
+    }
+  ]
+}
